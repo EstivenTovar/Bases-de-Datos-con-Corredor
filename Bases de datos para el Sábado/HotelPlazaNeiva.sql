@@ -3,14 +3,13 @@ CREATE DATABASE HotelPlazaNeiva;
 
 USE HotelPlazaNeiva;
 
--- CREACIÓN DE TABLAS
 CREATE TABLE HUESPEDES (
 
     id_huesped INT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
-    documento VARCHAR(20) UNIQUE NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
+    documento VARCHAR(20) NOT NULL,
+    telefono VARCHAR(10) NOT NULL,
     correo VARCHAR(100),
     fecha_registro DATE DEFAULT CURRENT_DATE
 );

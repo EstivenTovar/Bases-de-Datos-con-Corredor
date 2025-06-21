@@ -1,4 +1,5 @@
 CREATE DATABASE Mobileinfinix;
+
 USE MobileInfinix;
 
 -- CREACIÓN DE TABLAS

@@ -11,19 +11,19 @@ CREATE TABLE Empleados (
     apellido VARCHAR(50) NOT NULL,
     cargo VARCHAR(30) NOT NULL,
     fecha_ingreso DATE NOT NULL,
-    estado VARCHAR(10) DEFAULT 'Activo' CHECK (estado IN ('Activo', 'Inactivo')),
+    estado VARCHAR(10) DEFAULT 'Activo',
     correo VARCHAR(100),
     fecha_creacion DATETIME DEFAULT GETDATE()
 );
 
 CREATE TABLE Clientes (
     id_cliente INT PRIMARY KEY,
-    cedula VARCHAR(20) UNIQUE NOT NULL,
+    cedula VARCHAR(10) NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     direccion VARCHAR(100) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    fecha_registro DATE DEFAULT GETDATE()
+    telefono VARCHAR(10) NOT NULL,
+    fecha_registro DATETIME DEFAULT GETDATE()
 );
 
 CREATE TABLE ServiciosFunerarios (
@@ -38,9 +38,9 @@ CREATE TABLE ServiciosFunerarios (
 
 CREATE TABLE Contratos (
     id_contrato INT PRIMARY KEY,
-    codigo_contrato VARCHAR(20) UNIQUE NOT NULL,
+    codigo_contrato VARCHAR(20),
     descripcion VARCHAR(500),
-    estado_contrato VARCHAR(15) DEFAULT 'Vigente' CHECK (estado_contrato IN ('Vigente', 'Finalizado')),
+    estado_contrato VARCHAR(15) DEFAULT 'Activo' CHECK (estado_contrato IN ('Vigente', 'Finalizado')),
     fecha_inicio DATE NOT NULL,
     id_servicio INT NOT NULL,
     prioridad INT DEFAULT 1,
@@ -49,7 +49,7 @@ CREATE TABLE Contratos (
 
 CREATE TABLE VehiculosFuneraria (
     id_vehiculo INT PRIMARY KEY,
-    placa VARCHAR(10) UNIQUE NOT NULL,
+    placa VARCHAR(10) NOT NULL,
     marca VARCHAR(50) NOT NULL,
     modelo VARCHAR(30) NOT NULL,
     id_cliente INT,
@@ -162,11 +162,7 @@ BEGIN
         UPDATE Contratos
         SET estado_contrato = @nuevo_estado
         WHERE id_contrato = @id_contrato;
-        
-        -- Registrar el cambio en un log (tabla hipotética)
-        -- INSERT INTO LogCambiosContratos (id_contrato, estado_anterior, estado_nuevo, fecha_cambio)
-        -- SELECT @id_contrato, estado_contrato, @nuevo_estado, GETDATE()
-        -- FROM Contratos WHERE id_contrato = @id_contrato;
+       
         
         COMMIT TRANSACTION;
         
